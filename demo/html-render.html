@@ -58,32 +58,41 @@
       <h3>2. HTML Render, No Border, iron-ajax</h3>
       <demo-snippet>
         <template is="dom-bind" id="app2">
-          <style is="custom-style">
-            polymer-quill-html-render#demo2 {
-              --polymer-quill-html-max-width: 870px;
-            }
-          </style>
-          <iron-ajax
-            auto
-            url="sample.txt"
-            handle-as="text"
-            on-response="handleResponse"
-            last-response="{{ajaxResponse}}">
-          </iron-ajax>
-          <polymer-quill-html-render id="demo2"
-            content="{{ajaxResponse}}">
-          </polymer-quill-html-render>
+
+          <dom-module id="iron-ajax-demo">
+            <template>
+                <style is="custom-style">
+                    polymer-quill-html-render#demo2 {
+                      --polymer-quill-html-max-width: 870px;
+                    }
+                  </style>
+                  <iron-ajax
+                    auto
+                    url="sample.txt"
+                    handle-as="text"
+                    last-response="{{ajaxResponse}}">
+                  </iron-ajax>
+                  <polymer-quill-html-render id="demo2"
+                    content="{{ajaxResponse}}">
+                  </polymer-quill-html-render>      
+            </template>
+                <script>
+              Polymer({
+                is: 'iron-ajax-demo',
+
+                url: function (videoId) {
+                  return 'https://www.youtube.com/watch?v=' + videoId;
+                }
+              });
+            </script>
+          </dom-module>          
+          <iron-ajax-demo></iron-ajax-demo>
         </template>
       </demo-snippet>
 
     </div>
 
     <script>
-      var app2 = document.querySelector('#app2');
-
-      app2.handleResponse = function (event) {
-        console.log('handleResponse');
-      };
 
       window.addEventListener('WebComponentsReady', function() {
         console.log('html-render Demo Ready');
